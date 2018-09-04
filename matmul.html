@@ -1,0 +1,125 @@
+<html>
+<head>
+
+  <style>
+  head {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+
+  <script language="javascript" type="text/javascript" src="lib/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/p5.dom.min.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/gpu.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/numjs.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/sketch_rnn.js"></script>
+
+</head>
+<body>
+  <div id="sketch"></div>
+</body>
+<script language="javascript" type="text/javascript">
+
+var gpu = new GPU();
+
+function create_gpu_matmul(dim_1, dim_2) {
+  var opt = {
+      dimensions: [dim_1, dim_2],
+      mode: 'cpu'
+    };
+
+  if (dim_2 === 512) {
+    return gpu.createKernel(function(A, B) {
+      var sum = 0;
+      for (var i=0; i<512; i++) {
+        sum += A[this.thread.y][i] * B[i][this.thread.x];
+      }
+      return sum;
+    }, opt);
+  }
+  if (dim_2 === 1024) {
+    return gpu.createKernel(function(A, B) {
+      var sum = 0;
+      for (var i=0; i<1024; i++) {
+        sum += A[this.thread.y][i] * B[i][this.thread.x];
+      }
+      return sum;
+    }, opt);
+  }
+  return;
+}
+
+/*
+
+//
+// Startup code
+//
+var set_dim = 1024;
+var set_a = [];
+var set_b = [];
+var inner_a;
+var inner_b;
+var rand_a, rand_b;
+for(var m = 0; m < set_dim; m++) {
+  inner_a = [];
+  inner_b = [];
+  for(var n = 0; n < set_dim; n++) {
+    rand_a = Math.random()*100.0;
+    rand_b = Math.random()*100.0;
+    inner_a.push(rand_a);
+    inner_b.push(rand_b);
+  }
+  set_a.push(inner_a);
+  set_b.push(inner_b);
+}
+
+console.log("startup code", [set_a, set_b]);
+
+var gpu_matmul = create_gpu_matmul(set_dim, set_dim);
+
+var C = gpu_matmul(set_a, set_b);
+console.log(C);
+*/
+
+
+// Create the GPU accelerated function from a kernel
+// function that computes a single element in the
+// 512 x 512 matrix (2D array). The kernel function
+// is run in a parallel manner in the GPU resulting
+// in very fast computations! (...sometimes)
+
+var D = 1024;
+var A = nj.random(D, D);
+var B = nj.random(D, D);
+var C;
+var i;
+var N=5;
+var t1 = performance.now();
+for (i=0;i<N;i++) {
+  C = A.dot(B);
+  console.log(i);
+}
+var t2 = performance.now();
+console.log((t2-t1)/N);
+
+var Aarray = A.tolist();
+var Barray = B.tolist();
+
+var gpu = new GPU();
+
+var gpu_matmul = create_gpu_matmul(D, D);
+
+t1 = performance.now();
+for (i=0;i<N;i++) {
+  C = gpu_matmul(Aarray, Barray);
+  console.log(i);
+}
+t2 = performance.now();
+console.log((t2-t1)/N);
+
+</script>
+</html>

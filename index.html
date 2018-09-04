@@ -1,0 +1,145 @@
+<html>
+<head>
+
+	<title>sketch-rnn</title>
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<meta name="author" content="hardmaru">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400" rel="stylesheet">
+
+	<!--  Essential META Tags -->
+	<meta property="og:title" content="sketch-rnn">
+	<meta property="og:description" content="draw together with a recurrent neural network model">
+	<meta property="og:image" content="https://magenta.tensorflow.org/assets/sketch_rnn_demo/img/firetruck_grid.png">
+	<meta property="og:url" content="http://magenta.tensorflow.org/sketch-rnn-demo">
+	<!-- Twitter Card data -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="sketch-rnn">
+	<meta name="twitter:description" content="draw together with a recurrent neural network model">
+	<meta property="og:site_name" content="sketch-rnn">
+	<meta name="twitter:image" content="https://magenta.tensorflow.org/assets/sketch_rnn_demo/img/firetruck_grid.png">
+
+	<style>
+	head, body {
+	  margin: 0;
+	  padding: 0;
+		font-family: 'Roboto Mono', monospace;
+	}
+
+
+	#ui {
+		top: 0;
+    position: fixed;
+    left: 0;
+    padding: 20px;
+		width: 100%;
+	}
+
+	#ui button {
+		font-family: 'Roboto Mono', monospace;
+		border: 0px;
+    height: 36px;
+    min-width: 36px;
+    background-size: 36px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+		padding-left: 40px;
+    font-size: 20px;
+		color: #555;
+		opacity: 0.7;
+		font-weight: 300;
+		position: fixed;
+		top: 20px;
+	}
+
+	#ui button:hover{
+		color:black;
+		opacity: 0.9;
+	}
+
+	#info {
+		background-image: url('https://www.gstatic.com/images/icons/material/system/2x/info_outline_black_36dp.png');
+	}
+	#shuffle {
+		background-image: url('https://www.gstatic.com/images/icons/material/system/2x/shuffle_black_36dp.png');
+		/*left:127px;*/
+	}
+	#clear {
+		background-image: url('https://www.gstatic.com/images/icons/material/system/2x/delete_black_36dp.png');
+		/*right:20px;*/
+		left:152px;
+	}
+
+	#model_selector_wrap {
+		display: table;
+		margin:0 auto;
+		padding-top: 7px;
+	}
+	#model_selector {
+		/* color: rgba(0, 0, 0, 0.4); */
+    border: 1px solid #d6d6d6;
+    border-radius: 0px;
+    background: transparent;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 15px;
+    /* text-decoration: underline; */
+	}
+
+	#loading_text {
+		text-align: left;
+		width: 100%;
+		position: absolute;
+		top: 90px;
+	}
+
+	@media only screen and (max-width : 667px) {
+		#model_selector_wrap{
+			position: relative;
+			top: 30px;
+			display: block;
+		}
+		#ui button{
+			height:24px;
+			background-size:24px;
+			font-size:17px;
+			padding-left: 30px;
+		}
+	}
+	#sketch canvas {
+	}
+
+	</style>
+
+	<script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/large_models/bird.gen.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/mobile-detect.js/0.4.1/mobile-detect.min.js"></script>
+	<script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/p5.min.js"></script>
+	<script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/p5.dom.min.js"></script>
+	<script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/numjs.js"></script>
+	<script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/sketch_rnn.js"></script>
+
+</head>
+<body>
+	<div id="sketch"></div>
+	<div id="ui">
+		<div id="model_selector_wrap">
+			Model:
+			<select id="model_selector"></select>
+		</div>
+		<!--<button id="info">info</button>-->
+		<button id="clear">clear</button>
+		<button id="shuffle">random</button>
+
+		<div id="loading_text">
+		</div>
+	</div>
+</body>
+	<!-- <script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/models/ant.gen.js"></script> -->
+	<script language="javascript" type="text/javascript" src="classes.js"></script>
+	<script language="javascript" type="text/javascript" src="webdemo.js"></script>
+</html>

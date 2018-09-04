@@ -1,0 +1,97 @@
+<html>
+<head>
+
+  <title>sketch-rnn</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <meta name="author" content="hardmaru">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400" rel="stylesheet">
+
+  <style>
+  head, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+
+  #ui {
+    top: 0;
+    position: fixed;
+    left: 0;
+    padding: 20px;
+    width: 100%;
+  }
+
+  #ui button {
+    font-family: 'Roboto Mono', monospace;
+    border: 0px;
+    height: 36px;
+    min-width: 36px;
+    background-size: 36px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding-left: 40px;
+    font-size: 20px;
+    color: #555;
+    opacity: 0.7;
+    font-weight: 300;
+    position: fixed;
+    top: 20px;
+  }
+
+  #ui button:hover{
+    color:black;
+    opacity: 0.9;
+  }
+
+  #mainbutton {
+    background-image: url('https://www.gstatic.com/images/icons/material/system/2x/art_track_black_36dp.png');
+  }
+  #info {
+    /*background-image: url('https://www.gstatic.com/images/icons/material/system/2x/info_black_36dp.png');*/
+    right:20px;
+  }
+  #refresh {
+    background-image: url('https://www.gstatic.com/images/icons/material/system/2x/repeat_black_36dp.png');
+    right:100px;
+  }
+  @media only screen and (max-width : 667px) {
+    #ui button{
+      height:24px;
+      background-size:24px;
+      font-size:17px;
+      padding-left: 30px;
+    }
+  }
+  #sketch canvas {
+  }
+
+  </style>
+
+  <script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/p5.svg.js"></script>
+  <script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/numjs.js"></script>
+  <script language="javascript" type="text/javascript" src="https://storage.googleapis.com/quickdraw-models/sketchRNN/lib/sketch_rnn.js"></script>
+
+</head>
+<body>
+  <div>
+
+  </div>
+  <div id="sketch"></div>
+  <div id="ui">
+    <button id="mainbutton">sketch-rnn</button>
+    <button id="info">info</button>
+    <button id="refresh">redo</button>
+  </div>
+
+</body>
+
+<script language="javascript" type="text/javascript" src="sketchbot.js"></script>
+</html>
