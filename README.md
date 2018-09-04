@@ -4,7 +4,7 @@ sketch-rnn demo for seoul mediacity biennale 2018
 
 # download and run demo
 
-git clone https://github.com/hardmaru/sema-demo
+`git clone https://github.com/hardmaru/sema-demo`
 
 python2:
 
