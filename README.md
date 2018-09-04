@@ -2,7 +2,7 @@
 
 sketch-rnn demo for seoul mediacity biennale 2018
 
-# launch web server
+# download and run demo
 
 git clone https://github.com/hardmaru/sema-demo
 
@@ -12,6 +12,6 @@ python2:
 
 python3:
 
-python -m http.server
+`python -m http.server`
 
 Launch Chrome browser and go to `http://localhost:8000`
